@@ -1,0 +1,89 @@
+// Thanaporn pookai 
+// 65543206060-7 
+// sec3
+// URL:https://youtu.be/5ezmf7ReicM
+#include <stdio.h>
+#include <string.h>
+
+struct Node {
+	int data ;
+	struct Node *next ;
+};
+
+void AddNode(struct Node **walk, int data){
+	while(*walk != NULL){
+		walk = &(*walk) -> next ;
+	}//endwhile
+
+	*walk = new struct Node ;
+	(*walk) -> data = data ;
+	(*walk) -> next = NULL ;
+}//end function
+
+void ShowAll(struct Node *walk) ;
+void UpdateNode(struct Node **walk,int data,int data_new) ;
+void ShowBack(struct Node **walk) ;
+void SwapNode(struct Node **walk,int data,int temp);
+
+
+int main(){
+	struct Node *start;
+	start = NULL;
+	AddNode(&start , 19) ;
+	AddNode(&start , 39) ;
+	AddNode(&start , 59) ;
+	AddNode(&start , 79) ;
+	ShowAll(start);
+	SwapNode(&start, 39, 59) ;
+	ShowAll(start) ;
+	SwapNode(&start, 79, 19);
+	ShowAll(start) ;
+}
+
+void ShowAll(struct Node *walk) {
+	printf("\n : ") ;
+	
+	while (walk != NULL){
+		printf( "%d ", walk -> data) ;
+		walk = walk -> next ;
+	}//end while
+	printf( " " ) ;
+}//end function
+
+void UpdateNode(struct Node **walk, int data, int data_new) {
+	while(*walk != NULL) {
+		if((*walk)->data == data) {
+			break ;
+		}
+		walk = &(*walk) -> next ;
+	}
+	if((*walk) != NULL) {
+		(*walk) -> data = data_new ;
+	}
+}
+
+void ShowBack(struct Node **walk) {
+	struct Node *back = NULL ;
+	struct Node *now = *walk ;
+	struct Node *next = NULL ;
+	
+	while (now != NULL) {
+		next = now->next ;
+		now->next = back ;
+		back = now ;
+		now = next ; 
+	}
+	ShowAll(back) ;
+}
+
+void SwapNode(struct Node **walk,int data,int temp) {
+	while(*walk != NULL) {
+		if((*walk) -> data == data) {
+			(*walk) -> data = temp ;
+		}//end if
+		else if((*walk) -> data == temp) {
+			(*walk) -> data = data ;
+		}//end elseif
+		walk = &(*walk) -> next ;
+	}//end while
+}
